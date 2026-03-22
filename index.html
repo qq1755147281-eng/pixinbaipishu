@@ -1,0 +1,2338 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>派信娱乐 - 官方终版白皮书</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',      // 深蓝色
+                        secondary: '#c9a227',    // 金色
+                        accent: '#2b6cb0',       // 亮蓝色
+                        neutral: '#f7fafc',      // 浅灰色
+                        'text-dark': '#1a202c',  // 深色文本
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                    },
+                    boxShadow: {
+                        'elegant': '0 4px 20px rgba(0, 0, 0, 0.08)',
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            }
+            .bg-gradient-elegant {
+                background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            }
+            .border-gradient {
+                border-image: linear-gradient(to right, #c9a227, #fbbf24) 1;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+        }
+        
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(to right, #c9a227, #fbbf24);
+            margin: 2rem 0;
+            border-radius: 3px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-slide-in {
+            animation: slideIn 0.8s ease-in-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-neutral min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-elegant z-50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/7732a6a0e127463fa7e2a0844bd07767~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032222082529DE254BDD9E00B81EBF&amp;rrcfp=f06b921b&amp;x-expires=1776780528&amp;x-signature=Y52YhYsSm9UeeNLwt1ppgqlv2LY%3D" alt="派信娱乐" class="h-10">
+                <span class="text-primary font-bold text-xl">派信娱乐</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#overview" class="text-text-dark hover:text-accent transition-colors">项目概述</a>
+                <a href="#market" class="text-text-dark hover:text-accent transition-colors">市场痛点</a>
+                <a href="#products" class="text-text-dark hover:text-accent transition-colors">核心产品</a>
+                <a href="#economy" class="text-text-dark hover:text-accent transition-colors">经济模型</a>
+                <a href="#shareholders" class="text-text-dark hover:text-accent transition-colors">股东计划</a>
+                <a href="#roadmap" class="text-text-dark hover:text-accent transition-colors">落地规划</a>
+            </div>
+            <button class="md:hidden text-primary text-2xl" id="mobile-menu-button">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#overview" class="text-text-dark hover:text-accent transition-colors py-2">项目概述</a>
+                <a href="#market" class="text-text-dark hover:text-accent transition-colors py-2">市场痛点</a>
+                <a href="#products" class="text-text-dark hover:text-accent transition-colors py-2">核心产品</a>
+                <a href="#economy" class="text-text-dark hover:text-accent transition-colors py-2">经济模型</a>
+                <a href="#shareholders" class="text-text-dark hover:text-accent transition-colors py-2">股东计划</a>
+                <a href="#roadmap" class="text-text-dark hover:text-accent transition-colors py-2">落地规划</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <header class="bg-gradient-elegant text-white pt-28 pb-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-shadow animate-fade-in">派信娱乐（PaiXin Entertainment）</h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-200 animate-fade-in" style="animation-delay: 0.2s;">官方终版白皮书</p>
+                <div class="flex flex-wrap justify-center gap-6 mb-10 animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm px-6 py-3 rounded-lg">
+                        <p class="text-sm text-gray-300">版本</p>
+                        <p class="font-semibold">Official Final V1.0</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm px-6 py-3 rounded-lg">
+                        <p class="text-sm text-gray-300">发布时间</p>
+                        <p class="font-semibold">2026年</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm px-6 py-3 rounded-lg">
+                        <p class="text-sm text-gray-300">生态定位</p>
+                        <p class="font-semibold">Pi Network 主网生态</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center animate-fade-in" style="animation-delay: 0.6s;">
+                    <!-- 语言切换按钮 -->
+                    <div class="relative mb-4">
+                        <button id="language-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-medium py-2 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-lg flex items-center">
+                            <i class="fa fa-globe mr-2"></i>
+                            <span id="current-language">简体中文</span>
+                            <i class="fa fa-chevron-down ml-2"></i>
+                        </button>
+                        <!-- 语言选择下拉菜单 -->
+                        <div id="language-dropdown" class="hidden absolute top-full mt-2 left-0 right-0 bg-white rounded-lg shadow-2xl overflow-hidden z-50 border-2 border-yellow-300/30">
+                            <div class="py-2">
+                                <button class="language-option w-full text-left px-6 py-3 hover:bg-yellow-50 transition-all duration-300 flex items-center text-gray-900 hover:shadow-lg hover:scale-[1.02]" data-lang="zh">
+                                    <span class="w-3 h-3 bg-red-500 rounded-full mr-3 shadow-md"></span>
+                                    <span data-lang-key="currentLanguage" class="font-medium">简体中文</span>
+                                </button>
+                                <button class="language-option w-full text-left px-6 py-3 hover:bg-yellow-50 transition-all duration-300 flex items-center text-gray-900 hover:shadow-lg hover:scale-[1.02]" data-lang="en">
+                                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-3 shadow-md"></span>
+                                    <span class="font-medium">English</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 开始阅读按钮 -->
+                    <a href="#overview" class="bg-secondary hover:bg-yellow-500 text-primary font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 hover:shadow-lg" data-lang-key="startReading">
+                        开始阅读
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 核心宗旨 -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-10 text-primary">核心宗旨</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-neutral p-8 rounded-xl shadow-elegant text-center transform transition-all hover:-translate-y-2 hover:shadow-lg">
+                        <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-exchange text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-primary">让 Pi 真正流通</h3>
+                        <p class="text-gray-600">构建高频流通场景，激活 Pi 生态活力，实现价值流转</p>
+                    </div>
+                    <div class="bg-neutral p-8 rounded-xl shadow-elegant text-center transform transition-all hover:-translate-y-2 hover:shadow-lg">
+                        <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-users text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-primary">让先锋创造价值</h3>
+                        <p class="text-gray-600">提供多元化参与方式，让每一位先锋都能贡献价值</p>
+                    </div>
+                    <div class="bg-neutral p-8 rounded-xl shadow-elegant text-center transform transition-all hover:-translate-y-2 hover:shadow-lg">
+                        <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-line-chart text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-primary">让股东长期收益</h3>
+                        <p class="text-gray-600">建立可持续分红机制，保障股东长期稳定收益</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 前言 -->
+    <section class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-10 text-primary">前言</h2>
+                <div class="bg-white p-8 rounded-xl shadow-elegant">
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Pi Network 自诞生以来，以全球首创的移动挖矿模式，构建了世界规模最大、共识最强、信仰最坚定的先锋社区。项目创始人尼古拉斯博士多次强调：让每一位先锋，都能在 Pi 生态中成就一番属于自己的伟业。
+                    </p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        时至今日，Pi 主网正式运行，全球数千万先锋完成 KYC 认证，但生态发展仍面临巨大痛点：<strong class="text-primary">Pi 流通场景严重不足、先锋互动性缺失、娱乐生态高度空白、资产无法高效变现、社区价值无法真正落地。</strong>大量先锋仍停留在"每日点闪电"的基础阶段，有币无场景、有共识无落地、有参与无收益。
+                    </p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        派信娱乐，正是在这一时代背景下应运而生。作为 Pi 生态首批真正实现社区自治、价值下放、全民共建、长期分红的标准化娱乐生态，我们以 H5 棋牌游戏为载体，以 Pi 为核心流通资产，以 1000 名创始股东为共建基石，打造自造血、强流通、高活性、全合规的 Pi 原生娱乐生态，让一部分先锋率先抓住时代机遇，成就伟业，实现长期、稳定、可持续的生态收益。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        生态投资、社区入股、全民共治，是 Web3.0 与 Pi 生态发展的必然最终形态，这一模式将覆盖各行各业、全品类生态。而派信娱乐，敢于率先提出、率先落地、率先将所有权、分红权、治理权、收益权全面下放至全体先锋手中，打造 Pi 生态真正意义上的全民共有、全民共建、全民共享的标杆级项目。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目概述 -->
+    <section id="overview" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">一、项目概述</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                <div class="mt-10 bg-neutral p-8 rounded-xl shadow-elegant">
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        派信娱乐是Pi Network 主网生态内，首款完全基于派浏览器运行、纯 Pi 资产驱动、社区自治运营的综合性棋牌竞技娱乐平台。平台涵盖中国象棋、掼蛋、斗地主、麻将等全民经典休闲游戏，采用 H5 轻量化网页技术，无需下载 APP，派浏览器一键授权登录，实现 Pi 生态全流程闭环。
+                    </p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        平台以Pi 为核心价值资产，以平台积分为游戏内流通媒介，构建"Pi 充值兑换积分—积分参与游戏—游戏赢取积分—积分兑换 Pi—平台手续费造血—股东永久分红"的完整商业闭环。彻底解决 Pi 无法流通、先锋无场景参与、生态无活性、用户无收益的行业痛点，让先锋通过娱乐互动即可获取积分与 Pi 资产，收益远超单一手机点闪电，真正实现玩赚结合、价值落地、长期收益。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        项目由初始创业团队 + 全球社区先锋团队联合推广、联合运营、联合落地，坚持公开、透明、合规、去中心化的运营理念，以 1000 名创始股东为生态核心，打造 Pi 生态最具落地性、最具造血能力、最具长期价值的娱乐标杆。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 市场痛点与先锋刚需 -->
+    <section id="market" class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">二、市场痛点与先锋刚需</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-10 grid md:grid-cols-2 gap-8">
+                    <!-- 市场痛点 -->
+                    <div class="bg-white p-8 rounded-xl shadow-elegant">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary flex items-center">
+                            <i class="fa fa-exclamation-circle mr-3 text-secondary"></i>
+                            Pi 生态核心痛点
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">流通性严重不足</h4>
+                                    <p class="text-gray-600 text-sm mt-1">Pi 仅支持基础转账、质押等简单功能，无高频、刚需、可持续的消费与娱乐场景，资产无法高效流转，生态活力难以释放。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">先锋互动性缺失</h4>
+                                    <p class="text-gray-600 text-sm mt-1">现有生态缺乏可参与、可竞技、可社交的全民娱乐平台，先锋仅能独立挖矿，无群体互动、无娱乐体验、无价值共创。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">游戏生态完全空白</h4>
+                                    <p class="text-gray-600 text-sm mt-1">Pi 生态无原生棋牌竞技类应用，先锋无合适的娱乐渠道，Pi 无法在游戏场景中实现消耗与增值。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">价值无法落地变现</h4>
+                                    <p class="text-gray-600 text-sm mt-1">先锋长期挖矿积累 Pi，但无落地生态承接价值，无法通过生态参与获得额外收益，挖矿收益单一且有限。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">社区无真正自治权</h4>
+                                    <p class="text-gray-600 text-sm mt-1">传统生态由项目方完全掌控，先锋仅为用户，不享有平台所有权、分红权与治理权，无法共享生态成长红利。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 先锋刚需 -->
+                    <div class="bg-white p-8 rounded-xl shadow-elegant">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary flex items-center">
+                            <i class="fa fa-check-circle mr-3 text-secondary"></i>
+                            先锋核心刚需
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">安全合规的娱乐场景</h4>
+                                    <p class="text-gray-600 text-sm mt-1">需要安全、合规、原生的 Pi 娱乐场景，实现 Pi 的高频使用与流通。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">低门槛易操作平台</h4>
+                                    <p class="text-gray-600 text-sm mt-1">需要低门槛、易操作的游戏平台，通过娱乐赚取额外积分与 Pi。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">长期稳定收益渠道</h4>
+                                    <p class="text-gray-600 text-sm mt-1">需要长期稳定、可持续的收益渠道，突破单一挖矿收益模式。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">全民共建共享生态</h4>
+                                    <p class="text-gray-600 text-sm mt-1">需要全民共建、全民共享的自治生态，真正参与生态建设并享受分红。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">派浏览器原生应用</h4>
+                                    <p class="text-gray-600 text-sm mt-1">需要派浏览器原生、无需跳转、一键登录的轻量化应用，保障生态安全与使用便捷。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-primary bg-opacity-5 p-6 rounded-lg border-l-4 border-primary">
+                    <p class="text-gray-700 text-center font-medium">
+                        派信娱乐，精准解决所有痛点，全面满足先锋刚需，成为 Pi 生态不可或缺的核心基础设施。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生态定位与核心使命 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">三、生态定位与核心使命</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-10 grid md:grid-cols-2 gap-8">
+                    <!-- 生态定位 -->
+                    <div class="bg-neutral p-8 rounded-xl shadow-elegant">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary text-center">生态定位</h3>
+                        <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                            <p class="text-gray-800 font-medium text-center">
+                                Pi Network 生态首批社区自治型 H5 棋牌娱乐生态
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">派浏览器原生应用</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">纯 Pi 流通</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">自造血商业闭环</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">1000 股东全民共建</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 核心使命 -->
+                    <div class="bg-neutral p-8 rounded-xl shadow-elegant">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary text-center">核心使命</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</div>
+                                <p class="text-gray-700">让 Pi 在娱乐场景中真正流通、高效使用、持续增值。</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</div>
+                                <p class="text-gray-700">让先锋通过娱乐互动，获得超越点闪电的长期收益。</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                                <p class="text-gray-700">让 1000 名创始股东，共享生态永久分红权与自治治理权。</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                                <p class="text-gray-700">打造 Pi 生态标准化、可复制、可落地的全民共建模板。</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</div>
+                                <p class="text-gray-700">践行尼古拉斯愿景，让先锋在 Pi 生态中成就一番伟业。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心产品与技术架构 -->
+    <section id="products" class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">四、核心产品与技术架构</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <!-- 核心游戏矩阵 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（一）核心游戏矩阵</h3>
+                    <p class="text-gray-700 mb-6">平台以全民经典棋牌为核心，覆盖全年龄段先锋，持续迭代更新：</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-neutral p-6 rounded-lg border-l-4 border-secondary transform transition-all hover:-translate-y-1 hover:shadow-md">
+                            <h4 class="font-semibold text-lg mb-3 text-primary">中国象棋</h4>
+                            <p class="text-gray-600 text-sm">经典对局、排位赛、好友房</p>
+                        </div>
+                        <div class="bg-neutral p-6 rounded-lg border-l-4 border-secondary transform transition-all hover:-translate-y-1 hover:shadow-md">
+                            <h4 class="font-semibold text-lg mb-3 text-primary">掼蛋</h4>
+                            <p class="text-gray-600 text-sm">四人匹配、亲友组队、赛事场</p>
+                        </div>
+                        <div class="bg-neutral p-6 rounded-lg border-l-4 border-secondary transform transition-all hover:-translate-y-1 hover:shadow-md">
+                            <h4 class="font-semibold text-lg mb-3 text-primary">斗地主</h4>
+                            <p class="text-gray-600 text-sm">经典、癞子、挑战赛</p>
+                        </div>
+                        <div class="bg-neutral p-6 rounded-lg border-l-4 border-secondary transform transition-all hover:-translate-y-1 hover:shadow-md">
+                            <h4 class="font-semibold text-lg mb-3 text-primary">麻将</h4>
+                            <p class="text-gray-600 text-sm">多地玩法、快速对局、自定义房</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <p class="text-gray-700 text-sm">
+                            <i class="fa fa-lightbulb-o text-blue-500 mr-2"></i>
+                            <strong>后续拓展：</strong>五子棋、围棋、休闲竞技类游戏
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 技术架构 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（二）技术架构（派浏览器原生适配）</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-code text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">应用形态</h4>
+                                <p class="text-gray-600 text-sm">H5 网页应用，全机型自适应，无需下载 APP</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-globe text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">运行环境</h4>
+                                <p class="text-gray-600 text-sm">Pi Browser 派浏览器内嵌运行，不跳转外部链接</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-sign-in text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">登录方式</h4>
+                                <p class="text-gray-600 text-sm">Pi 钱包一键授权登录，无注册、无信息泄露、无额外门槛</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-credit-card text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">支付体系</h4>
+                                <p class="text-gray-600 text-sm">Pi 主网原生支付，安全可查、链上透明</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-random text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">公平机制</h4>
+                                <p class="text-gray-600 text-sm">链上哈希随机算法，防作弊、防外挂、保障对局公平</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4 flex-shrink-0">
+                                <i class="fa fa-shield text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">数据安全</h4>
+                                <p class="text-gray-600 text-sm">全量数据上链，分红、流水、推荐关系公开可查</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 生态互通能力 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（三）生态互通能力</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        平台支持与 Pi 生态内其他 DApp、商城、工具类项目全面对接，实现流量互通、资产互通、用户互通，打造 Pi 生态流量枢纽，持续吸引全球先锋用户。
+                    </p>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg text-center border border-green-100">
+                            <div class="text-green-600 mb-2">
+                                <i class="fa fa-exchange text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">流量互通</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center border border-blue-100">
+                            <div class="text-blue-600 mb-2">
+                                <i class="fa fa-money text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">资产互通</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg text-center border border-purple-100">
+                            <div class="text-purple-600 mb-2">
+                                <i class="fa fa-users text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">用户互通</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生态经济模型 -->
+    <section id="economy" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">五、生态经济模型（双资产闭环·自造血体系）</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-8 bg-neutral p-6 rounded-lg text-center">
+                    <p class="text-gray-700 italic">
+                        派信娱乐采用Pi 核心资产 + 平台积分双流通体系，合规安全、闭环稳定、永久可持续。
+                    </p>
+                </div>
+                
+                <!-- 核心资产定义 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（一）核心资产定义</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fa fa-circle text-xl"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold text-blue-800">Pi（派币）</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm mb-4">平台唯一价值核心资产，用于：</p>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    充值兑换
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    提现
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    分红发放
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    推荐奖励
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    转让结算
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-blue-500 mr-2"></i>
+                                    生态流通
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border border-yellow-200">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fa fa-star text-xl"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold text-yellow-800">平台积分</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm mb-4">游戏内唯一流通媒介，仅用于：</p>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-yellow-600 mr-2"></i>
+                                    开局入场
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-yellow-600 mr-2"></i>
+                                    对局消耗
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-yellow-600 mr-2"></i>
+                                    道具购买
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-yellow-600 mr-2"></i>
+                                    赛事报名
+                                </li>
+                            </ul>
+                            <div class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="text-xs text-yellow-800">
+                                    <i class="fa fa-info-circle mr-1"></i>
+                                    积分仅限平台内循环，不对外交易、不兑换法币、无金融属性，完全合规。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 固定兑换比例 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（二）固定兑换比例</h3>
+                    
+                    <div class="bg-gradient-to-r from-primary to-accent p-8 rounded-xl text-center text-white">
+                        <div class="text-4xl font-bold mb-2">1 Pi = 100 平台积分</div>
+                        <p class="text-lg opacity-90">全平台统一比例，永久固定、永不调整，保障生态经济稳定。</p>
+                    </div>
+                </div>
+                
+                <!-- 积分获取渠道 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（三）积分获取渠道</h3>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center border border-blue-100">
+                            <div class="text-blue-600 mb-2">
+                                <i class="fa fa-exchange text-2xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">Pi 充值兑换</p>
+                            <p class="text-xs text-gray-500 mt-1">主要来源</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg text-center border border-green-100">
+                            <div class="text-green-600 mb-2">
+                                <i class="fa fa-calendar-check-o text-2xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">每日签到奖励</p>
+                            <p class="text-xs text-gray-500 mt-1">股东享 1.5 倍</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg text-center border border-yellow-100">
+                            <div class="text-yellow-600 mb-2">
+                                <i class="fa fa-trophy text-2xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">游戏对局胜利</p>
+                            <p class="text-xs text-gray-500 mt-1">竞技奖励</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg text-center border border-purple-100">
+                            <div class="text-purple-600 mb-2">
+                                <i class="fa fa-gift text-2xl"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm font-medium">任务活动奖励</p>
+                            <p class="text-xs text-gray-500 mt-1">排行榜奖励</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 完整流通闭环 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（四）完整流通闭环</h3>
+                    
+                    <div class="relative">
+                        <!-- 闭环流程图 -->
+                        <div class="flex flex-wrap justify-between items-center mb-8">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-blue-600 font-bold">1</span>
+                            </div>
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-green-600 font-bold">2</span>
+                            </div>
+                            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-yellow-600 font-bold">3</span>
+                            </div>
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-purple-600 font-bold">4</span>
+                            </div>
+                            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-red-600 font-bold">5</span>
+                            </div>
+                            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center z-10 mb-2 mx-auto">
+                                <span class="text-indigo-600 font-bold">6</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 连接线（在移动设备上隐藏） -->
+                        <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gray-200 z-0">
+                            <div class="absolute top-0 left-1/6 w-0.5 h-4 bg-gray-200 -mt-2"></div>
+                            <div class="absolute top-0 left-2/6 w-0.5 h-4 bg-gray-200 -mt-2"></div>
+                            <div class="absolute top-0 left-3/6 w-0.5 h-4 bg-gray-200 -mt-2"></div>
+                            <div class="absolute top-0 left-4/6 w-0.5 h-4 bg-gray-200 -mt-2"></div>
+                            <div class="absolute top-0 left-5/6 w-0.5 h-4 bg-gray-200 -mt-2"></div>
+                        </div>
+                        
+                        <!-- 步骤说明 -->
+                        <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">充值</h4>
+                                <p class="text-xs text-gray-600">先锋使用 Pi 兑换积分，充值 0 手续费</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">游戏</h4>
+                                <p class="text-xs text-gray-600">使用积分参与棋牌对局，消耗入场</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">产出</h4>
+                                <p class="text-xs text-gray-600">获胜、签到、任务获取积分</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">提现</h4>
+                                <p class="text-xs text-gray-600">积分可兑换 Pi 提现，平台收取0.1% 提现手续费</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">造血</h4>
+                                <p class="text-xs text-gray-600">平台手续费、游戏服务费、生态合作收益形成自造血</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="font-semibold text-gray-800 mb-1">分红</h4>
+                                <p class="text-xs text-gray-600">全部收益按固定比例分配给全体股东</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 平台收益来源 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（五）平台收益来源（自造血能力）</h3>
+                    
+                    <div class="chart-container mb-6">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center p-3 bg-neutral rounded-lg">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">游戏对局手续费</p>
+                                <p class="text-xs text-gray-600">核心收入</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-neutral rounded-lg">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">提现服务费</p>
+                                <p class="text-xs text-gray-600">0.1%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-neutral rounded-lg">
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">股东权益转让手续费</p>
+                                <p class="text-xs text-gray-600">交易服务费</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-neutral rounded-lg">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">生态合作流量收益</p>
+                                <p class="text-xs text-gray-600">外部合作收入</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-neutral rounded-lg md:col-span-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">游戏内增值服务收益</p>
+                                <p class="text-xs text-gray-600">道具、特权等增值服务</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 收益刚性分配规则 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（六）收益刚性分配规则</h3>
+                    
+                    <p class="text-gray-700 mb-6">平台所有收益，严格按照以下比例永久分配，永不篡改：</p>
+                    
+                    <div class="chart-container mb-8">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-xl font-semibold text-blue-800">65%</h4>
+                                <div class="text-blue-600">
+                                    <i class="fa fa-users text-xl"></i>
+                                </div>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">创始股东永久分红池</h5>
+                            <p class="text-sm text-gray-600">按股东贡献权重自动分配，定期发放、链上可查</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-xl font-semibold text-green-800">15%</h4>
+                                <div class="text-green-600">
+                                    <i class="fa fa-code text-xl"></i>
+                                </div>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">技术开发与运维</h5>
+                            <p class="text-sm text-gray-600">服务器、安全审计、版本迭代、技术维护</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border border-yellow-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-xl font-semibold text-yellow-800">20%</h4>
+                                <div class="text-yellow-600">
+                                    <i class="fa fa-bullhorn text-xl"></i>
+                                </div>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">市场运营与流量基金</h5>
+                            <p class="text-sm text-gray-600">社区推广、活动奖励、推荐奖励发放、生态对接、全球拓客</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1000 名创始股东计划 -->
+    <section id="shareholders" class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">六、1000 名创始股东计划（全民共建·核心基石）</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <!-- 股东招募规则 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（一）股东招募规则</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">1</div>
+                                <p class="text-gray-700">全球限量招募1000 名创始股东，满员立即截止</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">2</div>
+                                <p class="text-gray-700">加入条件：贡献900 Pi至公开透明多签钱包</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">3</div>
+                                <p class="text-gray-700">资金用途：平台开发、服务器、运营、生态启动、市场推广</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">4</div>
+                                <p class="text-gray-700">参与主体：Pi 全球先锋、社区团队、共识者共建共享</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-primary to-accent rounded-xl p-6 text-white flex flex-col justify-center">
+                            <h4 class="text-2xl font-bold mb-4 text-center">股东名额</h4>
+                            <div class="text-center mb-4">
+                                <span class="text-5xl font-bold">1000</span>
+                                <span class="text-xl">名</span>
+                            </div>
+                            <p class="text-center opacity-90 mb-6">全球限量，先到先得</p>
+                            <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm">已招募</span>
+                                    <span class="text-sm font-semibold">0/1000</span>
+                                </div>
+                                <div class="w-full bg-white bg-opacity-20 rounded-full h-2.5">
+                                    <div class="bg-secondary h-2.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 股东终身核心权益 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（二）股东终身核心权益</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-blue-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-blue-100 text-blue-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-money"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">永久分红权</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">享受平台 65% 总收益终身分红，永续有效</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 text-green-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-calendar-check-o"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">1.5 倍签到奖励</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">每日签到积分翻倍，收益更高</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-purple-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-purple-100 text-purple-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-certificate"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">专属共创 NFT</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">生态唯一身份标识，享有治理权重</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-yellow-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-yellow-100 text-yellow-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-vote-yea"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">DAO 自治投票权</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">参与平台规则、游戏更新、费率调整、运营决策</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-red-100 text-red-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">优先体验权</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">新版本、新游戏、新活动优先参与</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-indigo-500">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-handshake-o"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">推荐奖励权</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">享有两代合规推荐奖励资格</p>
+                        </div>
+                        <div class="bg-neutral p-5 rounded-lg border-l-4 border-pink-500 md:col-span-2">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-pink-100 text-pink-600 rounded-full p-2 mr-3">
+                                    <i class="fa fa-exchange"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">资产转让流通权</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">股东权益可自由转让、流通，实现资产变现</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 股东转让与流通规则 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（三）股东转让与流通规则</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</div>
+                            <p class="text-gray-700">1000 名股东满员后，股东权益支持自由转让</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</div>
+                            <p class="text-gray-700">每次转让，平台收取合理手续费，纳入生态收益池</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                            <p class="text-gray-700">转让记录链上可查，公开透明、安全保障</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                            <p class="text-gray-700">转让不影响分红权接续，新股东自动继承全部权益</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 社区自治运营 -->
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">（四）社区自治运营</h3>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        派信娱乐由初始创业团队 + 全球先锋社区联合运营，重大决策全部通过股东 DAO 投票决定，真正实现先锋自治、社区共治、生态共享。
+                    </p>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border border-blue-100">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4">
+                                <i class="fa fa-users text-primary"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-primary">社区自治核心原则</h4>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">先锋自治</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">社区共治</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                <p class="text-gray-700 font-medium">生态共享</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 两代推荐奖励机制 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">七、两代推荐奖励机制（合规裂变·快速落地）</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-8 bg-neutral p-6 rounded-lg">
+                    <p class="text-gray-700 mb-4">
+                        为加速生态落地、快速完成 1000 名股东招募，平台设立两代合规推荐奖励，仅限股东招募阶段，无多层级、无传销风险：
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fa fa-user-plus text-xl"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold text-blue-800">一级直推奖励</h4>
+                            </div>
+                            <p class="text-gray-700 mb-4">推荐 1 人成功成为股东（缴纳 900 Pi），奖励<strong class="text-blue-600">90 Pi</strong> 等值资产</p>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">推荐成功率</span>
+                                    <span class="font-semibold text-blue-600">10%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: 10%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fa fa-users text-xl"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold text-green-800">二级间推奖励</h4>
+                            </div>
+                            <p class="text-gray-700 mb-4">直推股东再推荐 1 人入股，上级奖励<strong class="text-green-600">45 Pi</strong> 等值资产</p>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">二代转化率</span>
+                                    <span class="font-semibold text-green-600">5%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                            <p class="text-gray-700">两代封顶，直推人数不设上限，拉新越多、收益越高</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                            <p class="text-gray-700">奖励全部从20% 运营基金支出，绝不占用 65% 股东分红池</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</div>
+                            <p class="text-gray-700">链上自动记录推荐关系，定期统一结算，公开可查</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2026 年全面落地规划 -->
+    <section id="roadmap" class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">八、2026 年全面落地规划（Q1–Q4 完整版）</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-10 space-y-12">
+                    <!-- Q1 -->
+                    <div class="relative">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 flex-shrink-0 z-10">
+                                <span class="font-bold">Q1</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-elegant flex-grow">
+                                <h3 class="text-xl font-semibold mb-4 text-primary">2026 启动奠基阶段</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">正式发布官方白皮书，启动全球1000 名创始股东招募</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">完成多签钱包部署、资金透明公示、社区自治规则确立</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">H5 游戏平台基础架构开发，完成派浏览器适配与登录对接</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">搭建积分体系、充值提现系统、分红核算后台</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">组建社区运营团队，启动全球先锋推广与社群搭建</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 连接线 -->
+                        <div class="hidden md:block absolute top-12 left-6 w-0.5 h-32 bg-gray-300"></div>
+                    </div>
+                    
+                    <!-- Q2 -->
+                    <div class="relative">
+                        <div class="flex items-start">
+                            <div class="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 flex-shrink-0 z-10">
+                                <span class="font-bold">Q2</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-elegant flex-grow">
+                                <h3 class="text-xl font-semibold mb-4 text-primary">2026 正式上线阶段</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">派信娱乐 H5 平台在派浏览器正式上线运行</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">上线核心游戏：中国象棋、掼蛋</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">开放 Pi 充值兑换积分、签到奖励、对局竞技功能</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">提现 0.1% 手续费机制正式启用</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">股东分红系统上线，首期分红开始核算与发放</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">两代推荐奖励系统上线，自动结算、链上可查</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 连接线 -->
+                        <div class="hidden md:block absolute top-12 left-6 w-0.5 h-32 bg-gray-300"></div>
+                    </div>
+                    
+                    <!-- Q3 -->
+                    <div class="relative">
+                        <div class="flex items-start">
+                            <div class="bg-yellow-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 flex-shrink-0 z-10">
+                                <span class="font-bold">Q3</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-elegant flex-grow">
+                                <h3 class="text-xl font-semibold mb-4 text-primary">2026 生态完善阶段</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">新增上线斗地主、麻将全品类棋牌游戏</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">完善游戏匹配、好友房、赛事场、排行榜系统</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">启动 DAO 股东自治投票，重大决策由全体股东共同决定</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">完成 Pi 生态多项目对接，实现流量互通、用户互通、生态互通</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">全面提升用户体验，优化游戏流畅度与安全风控体系</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 连接线 -->
+                        <div class="hidden md:block absolute top-12 left-6 w-0.5 h-32 bg-gray-300"></div>
+                    </div>
+                    
+                    <!-- Q4 -->
+                    <div class="relative">
+                        <div class="flex items-start">
+                            <div class="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 flex-shrink-0 z-10">
+                                <span class="font-bold">Q4</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-elegant flex-grow">
+                                <h3 class="text-xl font-semibold mb-4 text-primary">2026 成熟稳定阶段</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">全游戏矩阵优化完成，平台功能全面成熟</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">全球先锋用户大规模涌入，生态活跃度持续爆发</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">平台实现稳定自造血，股东收益稳步增长</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">成为 Pi 生态内玩家最多、落地最强、共识最高的头部娱乐生态</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                        <p class="text-gray-700">建立长期稳定运营机制，保障所有股东享受终身、可持续、高价值的生态收益</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心价值与时代意义 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">九、核心价值与时代意义</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-neutral p-6 rounded-xl shadow-elegant">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 text-blue-600 rounded-full p-3 mr-4">
+                                <i class="fa fa-rocket text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-primary">Pi 生态破局者</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            彻底解决 Pi 流通难题，让 Pi 从"挖矿资产"变为"使用资产"，激活生态活力。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-neutral p-6 rounded-xl shadow-elegant">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 text-green-600 rounded-full p-3 mr-4">
+                                <i class="fa fa-line-chart text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-primary">先锋收益革新者</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            让先锋不再依赖单一挖矿，通过娱乐、签到、竞技、分红获得多元化、长期化、超额化收益。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-neutral p-6 rounded-xl shadow-elegant">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-yellow-100 text-yellow-600 rounded-full p-3 mr-4">
+                                <i class="fa fa-users text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-primary">全民共建先行者</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            Pi 生态首批将所有权、分红权、治理权全面下放给先锋的项目，践行 Web3.0 精神。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-neutral p-6 rounded-xl shadow-elegant">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 text-purple-600 rounded-full p-3 mr-4">
+                                <i class="fa fa-cubes text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-primary">生态价值落地者</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            以真实游戏场景、真实用户需求、真实造血能力，实现 Pi 生态从概念到落地的跨越。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-neutral p-6 rounded-xl shadow-elegant md:col-span-2">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 text-red-600 rounded-full p-3 mr-4">
+                                <i class="fa fa-trophy text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-primary">伟业成就践行者</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            响应尼古拉斯愿景，让一部分先锋抓住生态早期红利，在 Pi 生态中成就属于自己的长期伟业。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 合规声明与风险提示 -->
+    <section class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">十、合规声明与风险提示</h2>
+                <div class="section-divider mx-auto w-24"></div>
+                
+                <div class="mt-10 bg-white p-8 rounded-xl shadow-elegant">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</div>
+                            <p class="text-gray-700">本平台为Pi 生态休闲竞技娱乐平台，仅提供游戏服务，不涉及法币交易、不提供金融理财、不构成投资建议。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</div>
+                            <p class="text-gray-700">平台积分仅为游戏内消耗道具，不具备证券、期货、理财等任何金融属性。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</div>
+                            <p class="text-gray-700">Pi 资产价格由市场共识决定，平台不承诺收益、不担保价值。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</div>
+                            <p class="text-gray-700">游戏对局为娱乐行为，输赢均为生态内体验，请先锋理性参与、文明娱乐。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</div>
+                            <p class="text-gray-700">平台严格遵守全球各国法律法规，坚守 Pi 生态规则，坚持合规、透明、安全运营。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">6</div>
+                            <p class="text-gray-700">早期生态存在正常迭代优化，团队将全力保障生态稳定、股东权益与用户体验。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 结语 -->
+    <section class="py-16 bg-gradient-elegant text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-8">结语</h2>
+                <p class="text-xl mb-8 leading-relaxed opacity-90">
+                    派信娱乐，不止是一款游戏平台，更是 Pi 生态价值落地的里程碑、先锋收益的新引擎、全民共建的新标杆。
+                </p>
+                <p class="text-xl mb-12 leading-relaxed opacity-90">
+                    我们以 1000 名股东为起点，以社区自治为核心，以 Pi 流通为使命，以长期收益为目标，让每一位参与者，都能在生态中获得尊重、获得价值、获得长期稳定的回报。
+                </p>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl mb-12">
+                    <p class="text-2xl font-light italic mb-4">
+                        "Pi 的时代已经到来，生态的红利正在爆发。"
+                    </p>
+                    <p class="text-xl">
+                        加入派信娱乐，成为生态共建者，抓住 Pi 生态黄金机遇，成就属于自己的时代伟业！
+                    </p>
+                </div>
+                
+                <div class="text-xl font-semibold">
+                    派信娱乐·与全球 Pi 先锋共建未来
+                </div>
+                <div class="mt-2 text-lg opacity-80">
+                    2026 年 全面落地
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                    <div class="flex items-center mb-6 md:mb-0">
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/7732a6a0e127463fa7e2a0844bd07767~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032222082529DE254BDD9E00B81EBF&amp;rrcfp=f06b921b&amp;x-expires=1776780528&amp;x-signature=Y52YhYsSm9UeeNLwt1ppgqlv2LY%3D" alt="派信娱乐" class="h-10 mr-3">
+                        <span class="text-xl font-bold">派信娱乐</span>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition-colors" title="电报群">
+                            <i class="fa fa-telegram"></i>
+                        </a>
+                        <a href="#" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition-colors" title="官方邮箱">
+                            <i class="fa fa-envelope-o"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white border-opacity-20 pt-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">关于我们</h4>
+                            <p class="text-gray-300 text-sm">
+                                派信娱乐是Pi Network生态首批社区自治型H5棋牌娱乐平台，致力于让Pi真正流通、让先锋创造价值、让股东长期收益。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><a href="#overview" class="text-gray-300 hover:text-white transition-colors">项目概述</a></li>
+                                <li><a href="#economy" class="text-gray-300 hover:text-white transition-colors">经济模型</a></li>
+                                <li><a href="#shareholders" class="text-gray-300 hover:text-white transition-colors">股东计划</a></li>
+                                <li><a href="#roadmap" class="text-gray-300 hover:text-white transition-colors">落地规划</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center">
+                                    <i class="fa fa-envelope-o mr-2"></i>
+                                    <span class="text-gray-300">官方邮箱：pixin.yule@protonmail.com</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-comments mr-2"></i>
+                                    <span class="text-gray-300">电报群：pixinyule314</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-gray-400 text-sm pt-8 border-t border-white border-opacity-20">
+                        <p>© 2026 派信娱乐（PaiXin Entertainment）. 保留所有权利。</p>
+                        <p class="mt-2">本白皮书仅供参考，不构成任何投资建议。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary hover:bg-accent text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-110 opacity-0 invisible">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 图表初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 收益来源图表
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['游戏对局手续费', '提现服务费', '股东权益转让手续费', '生态合作流量收益', '游戏内增值服务收益'],
+                    datasets: [{
+                        data: [60, 15, 10, 10, 5],
+                        backgroundColor: [
+                            '#3b82f6', // 蓝色
+                            '#10b981', // 绿色
+                            '#f59e0b', // 黄色
+                            '#8b5cf6', // 紫色
+                            '#ef4444'  // 红色
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '平台收益来源分布',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 收益分配图表
+            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+            const distributionChart = new Chart(distributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['创始股东永久分红池', '技术开发与运维', '市场运营与流量基金'],
+                    datasets: [{
+                        data: [65, 15, 20],
+                        backgroundColor: [
+                            '#3b82f6', // 蓝色
+                            '#10b981', // 绿色
+                            '#f59e0b'  // 黄色
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '收益刚性分配规则',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        
+        // 多语言支持
+        const translations = {
+            zh: {
+                // 导航栏
+                navOverview: '项目概述',
+                navMarket: '市场痛点',
+                navProducts: '核心产品',
+                navEconomy: '经济模型',
+                navShareholders: '股东计划',
+                navRoadmap: '落地规划',
+                
+                // 英雄区
+                title: '派信娱乐（PaiXin Entertainment）',
+                subtitle: '官方终版白皮书',
+                version: '版本',
+                versionValue: 'Official Final V1.0',
+                releaseDate: '发布时间',
+                releaseDateValue: '2026年',
+                ecoPosition: '生态定位',
+                ecoPositionValue: 'Pi Network 主网生态',
+                startReading: '开始阅读',
+                currentLanguage: '简体中文',
+                
+                // 核心宗旨
+                coreValues: '核心宗旨',
+                value1Title: '让 Pi 真正流通',
+                value1Desc: '构建高频流通场景，激活 Pi 生态活力，实现价值流转',
+                value2Title: '让先锋创造价值',
+                value2Desc: '提供多元化参与方式，让每一位先锋都能贡献价值',
+                value3Title: '让股东长期收益',
+                value3Desc: '建立可持续分红机制，保障股东长期稳定收益',
+                
+                // 前言
+                preface: '前言',
+                
+                // 项目概述
+                overview: '一、项目概述',
+                
+                // 市场痛点
+                market: '二、市场痛点与先锋刚需',
+                painPoints: 'Pi 生态核心痛点',
+                painPoint1: '流通性严重不足',
+                painPoint1Desc: 'Pi 仅支持基础转账、质押等简单功能，无高频、刚需、可持续的消费与娱乐场景，资产无法高效流转，生态活力难以释放。',
+                painPoint2: '先锋互动性缺失',
+                painPoint2Desc: '现有生态缺乏可参与、可竞技、可社交的全民娱乐平台，先锋仅能独立挖矿，无群体互动、无娱乐体验、无价值共创。',
+                painPoint3: '游戏生态完全空白',
+                painPoint3Desc: 'Pi 生态无原生棋牌竞技类应用，先锋无合适的娱乐渠道，Pi 无法在游戏场景中实现消耗与增值。',
+                painPoint4: '价值无法落地变现',
+                painPoint4Desc: '先锋长期挖矿积累 Pi，但无落地生态承接价值，无法通过生态参与获得额外收益，挖矿收益单一且有限。',
+                painPoint5: '社区无真正自治权',
+                painPoint5Desc: '传统生态由项目方完全掌控，先锋仅为用户，不享有平台所有权、分红权与治理权，无法共享生态成长红利。',
+                
+                demands: '先锋核心刚需',
+                demand1: '安全合规的娱乐场景',
+                demand1Desc: '需要安全、合规、原生的 Pi 娱乐场景，实现 Pi 的高频使用与流通。',
+                demand2: '低门槛易操作平台',
+                demand2Desc: '需要低门槛、易操作的游戏平台，通过娱乐赚取额外积分与 Pi。',
+                demand3: '长期稳定收益渠道',
+                demand3Desc: '需要长期稳定、可持续的收益渠道，突破单一挖矿收益模式。',
+                demand4: '全民共建共享生态',
+                demand4Desc: '需要全民共建、全民共享的自治生态，真正参与生态建设并享受分红。',
+                demand5: '派浏览器原生应用',
+                demand5Desc: '需要派浏览器原生、无需跳转、一键登录的轻量化应用，保障生态安全与使用便捷。',
+                
+                solution: '派信娱乐，精准解决所有痛点，全面满足先锋刚需，成为 Pi 生态不可或缺的核心基础设施。',
+                
+                // 生态定位与使命
+                positioning: '三、生态定位与核心使命',
+                ecoPositioning: '生态定位',
+                ecoPositioningDesc: 'Pi Network 生态首批社区自治型 H5 棋牌娱乐生态',
+                nativeApp: '派浏览器原生应用',
+                piOnly: '纯 Pi 流通',
+                selfSustaining: '自造血商业闭环',
+                communityBuild: '1000 股东全民共建',
+                
+                mission: '核心使命',
+                mission1: '让 Pi 在娱乐场景中真正流通、高效使用、持续增值。',
+                mission2: '让先锋通过娱乐互动，获得超越点闪电的长期收益。',
+                mission3: '让 1000 名创始股东，共享生态永久分红权与自治治理权。',
+                mission4: '打造 Pi 生态标准化、可复制、可落地的全民共建模板。',
+                mission5: '践行尼古拉斯愿景，让先锋在 Pi 生态中成就一番伟业。',
+                
+                // 核心产品
+                products: '四、核心产品与技术架构',
+                gameMatrix: '（一）核心游戏矩阵',
+                gameMatrixDesc: '平台以全民经典棋牌为核心，覆盖全年龄段先锋，持续迭代更新：',
+                game1: '中国象棋',
+                game1Desc: '经典对局、排位赛、好友房',
+                game2: '掼蛋',
+                game2Desc: '四人匹配、亲友组队、赛事场',
+                game3: '斗地主',
+                game3Desc: '经典、癞子、挑战赛',
+                game4: '麻将',
+                game4Desc: '多地玩法、快速对局、自定义房',
+                futureGames: '后续拓展：',
+                futureGamesList: '五子棋、围棋、休闲竞技类游戏',
+                
+                techArchitecture: '（二）技术架构（派浏览器原生适配）',
+                appType: '应用形态',
+                appTypeDesc: 'H5 网页应用，全机型自适应，无需下载 APP',
+                runtimeEnv: '运行环境',
+                runtimeEnvDesc: 'Pi Browser 派浏览器内嵌运行，不跳转外部链接',
+                loginMethod: '登录方式',
+                loginMethodDesc: 'Pi 钱包一键授权登录，无注册、无信息泄露、无额外门槛',
+                paymentSystem: '支付体系',
+                paymentSystemDesc: 'Pi 主网原生支付，安全可查、链上透明',
+                fairness: '公平机制',
+                fairnessDesc: '链上哈希随机算法，防作弊、防外挂、保障对局公平',
+                dataSecurity: '数据安全',
+                dataSecurityDesc: '全量数据上链，分红、流水、推荐关系公开可查',
+                
+                ecoInteroperability: '（三）生态互通能力',
+                ecoInteroperabilityDesc: '平台支持与 Pi 生态内其他 DApp、商城、工具类项目全面对接，实现流量互通、资产互通、用户互通，打造 Pi 生态流量枢纽，持续吸引全球先锋用户。',
+                trafficInterop: '流量互通',
+                assetInterop: '资产互通',
+                userInterop: '用户互通',
+                
+                // 经济模型
+                economy: '五、生态经济模型（双资产闭环·自造血体系）',
+                economyDesc: '派信娱乐采用Pi 核心资产 + 平台积分双流通体系，合规安全、闭环稳定、永久可持续。',
+                
+                assets: '（一）核心资产定义',
+                piCoin: 'Pi（派币）',
+                piCoinDesc: '平台唯一价值核心资产，用于：',
+                piUses: ['充值兑换', '提现', '分红发放', '推荐奖励', '转让结算', '生态流通'],
+                
+                platformPoints: '平台积分',
+                platformPointsDesc: '游戏内唯一流通媒介，仅用于：',
+                pointUses: ['开局入场', '对局消耗', '道具购买', '赛事报名'],
+                pointsCompliance: '积分仅限平台内循环，不对外交易、不兑换法币、无金融属性，完全合规。',
+                
+                exchangeRate: '（二）固定兑换比例',
+                exchangeRateDesc: '全平台统一比例，永久固定、永不调整，保障生态经济稳定。',
+                
+                pointSources: '（三）积分获取渠道',
+                recharge: 'Pi 充值兑换',
+                rechargeDesc: '主要来源',
+                dailyCheckin: '每日签到奖励',
+                dailyCheckinDesc: '股东享 1.5 倍',
+                gameWin: '游戏对局胜利',
+                gameWinDesc: '竞技奖励',
+                tasks: '任务活动奖励',
+                tasksDesc: '排行榜奖励',
+                
+                circulation: '（四）完整流通闭环',
+                step1: '充值',
+                step1Desc: '先锋使用 Pi 兑换积分，充值 0 手续费',
+                step2: '游戏',
+                step2Desc: '使用积分参与棋牌对局，消耗入场',
+                step3: '产出',
+                step3Desc: '获胜、签到、任务获取积分',
+                step4: '提现',
+                step4Desc: '积分可兑换 Pi 提现，平台收取0.1% 提现手续费',
+                step5: '造血',
+                step5Desc: '平台手续费、游戏服务费、生态合作收益形成自造血',
+                step6: '分红',
+                step6Desc: '全部收益按固定比例分配给全体股东',
+                
+                revenue: '（五）平台收益来源（自造血能力）',
+                gameFees: '游戏对局手续费',
+                gameFeesDesc: '核心收入',
+                withdrawalFees: '提现服务费',
+                withdrawalFeesDesc: '0.1%',
+                transferFees: '股东权益转让手续费',
+                transferFeesDesc: '交易服务费',
+                ecoPartnerships: '生态合作流量收益',
+                ecoPartnershipsDesc: '外部合作收入',
+                valueAdded: '游戏内增值服务收益',
+                valueAddedDesc: '道具、特权等增值服务',
+                
+                distribution: '（六）收益刚性分配规则',
+                distributionDesc: '平台所有收益，严格按照以下比例永久分配，永不篡改：',
+                shareholderPool: '创始股东永久分红池',
+                shareholderPoolDesc: '按股东贡献权重自动分配，定期发放、链上可查',
+                techDev: '技术开发与运维',
+                techDevDesc: '服务器、安全审计、版本迭代、技术维护',
+                marketing: '市场运营与流量基金',
+                marketingDesc: '社区推广、活动奖励、推荐奖励发放、生态对接、全球拓客',
+                
+                // 股东计划
+                shareholders: '六、1000 名创始股东计划（全民共建·核心基石）',
+                
+                recruitment: '（一）股东招募规则',
+                recruitment1: '全球限量招募1000 名创始股东，满员立即截止',
+                recruitment2: '加入条件：贡献900 Pi至公开透明多签钱包',
+                recruitment3: '资金用途：平台开发、服务器、运营、生态启动、市场推广',
+                recruitment4: '参与主体：Pi 全球先锋、社区团队、共识者共建共享',
+                
+                shareholderCount: '股东名额',
+                shareholderLimit: '全球限量，先到先得',
+                recruited: '已招募',
+                
+                benefits: '（二）股东终身核心权益',
+                permanentDividend: '永久分红权',
+                permanentDividendDesc: '享受平台 65% 总收益终身分红，永续有效',
+                bonusCheckin: '1.5 倍签到奖励',
+                bonusCheckinDesc: '每日签到积分翻倍，收益更高',
+                exclusiveNFT: '专属共创 NFT',
+                exclusiveNFTDesc: '生态唯一身份标识，享有治理权重',
+                daoVoting: 'DAO 自治投票权',
+                daoVotingDesc: '参与平台规则、游戏更新、费率调整、运营决策',
+                priorityAccess: '优先体验权',
+                priorityAccessDesc: '新版本、新游戏、新活动优先参与',
+                referralReward: '推荐奖励权',
+                referralRewardDesc: '享有两代合规推荐奖励资格',
+                transferRight: '资产转让流通权',
+                transferRightDesc: '股东权益可自由转让、流通，实现资产变现',
+                
+                transferRules: '（三）股东转让与流通规则',
+                transferRule1: '1000 名股东满员后，股东权益支持自由转让',
+                transferRule2: '每次转让，平台收取合理手续费，纳入生态收益池',
+                transferRule3: '转让记录链上可查，公开透明、安全保障',
+                transferRule4: '转让不影响分红权接续，新股东自动继承全部权益',
+                
+                communityGovernance: '（四）社区自治运营',
+                communityGovernanceDesc: '派信娱乐由初始创业团队 + 全球先锋社区联合运营，重大决策全部通过股东 DAO 投票决定，真正实现先锋自治、社区共治、生态共享。',
+                governancePrinciples: '社区自治核心原则',
+                pioneerSelfGov: '先锋自治',
+                communityCoGov: '社区共治',
+                ecoShared: '生态共享',
+                
+                // 推荐奖励
+                referral: '七、两代推荐奖励机制（合规裂变·快速落地）',
+                referralDesc: '为加速生态落地、快速完成 1000 名股东招募，平台设立两代合规推荐奖励，仅限股东招募阶段，无多层级、无传销风险：',
+                
+                directReferral: '一级直推奖励',
+                directReferralDesc: '推荐 1 人成功成为股东（缴纳 900 Pi），奖励90 Pi 等值资产',
+                indirectReferral: '二级间推奖励',
+                indirectReferralDesc: '直推股东再推荐 1 人入股，上级奖励45 Pi 等值资产',
+                referralRule1: '两代封顶，直推人数不设上限，拉新越多、收益越高',
+                referralRule2: '奖励全部从20% 运营基金支出，绝不占用 65% 股东分红池',
+                referralRule3: '链上自动记录推荐关系，定期统一结算，公开可查',
+                
+                // 落地规划
+                roadmap: '八、2026 年全面落地规划（Q1–Q4 完整版）',
+                
+                q1: 'Q1',
+                q1Title: '2026 启动奠基阶段',
+                q1Items: [
+                    '正式发布官方白皮书，启动全球1000 名创始股东招募',
+                    '完成多签钱包部署、资金透明公示、社区自治规则确立',
+                    'H5 游戏平台基础架构开发，完成派浏览器适配与登录对接',
+                    '搭建积分体系、充值提现系统、分红核算后台',
+                    '组建社区运营团队，启动全球先锋推广与社群搭建'
+                ],
+                
+                q2: 'Q2',
+                q2Title: '2026 正式上线阶段',
+                q2Items: [
+                    '派信娱乐 H5 平台在派浏览器正式上线运行',
+                    '上线核心游戏：中国象棋、掼蛋',
+                    '开放 Pi 充值兑换积分、签到奖励、对局竞技功能',
+                    '提现 0.1% 手续费机制正式启用',
+                    '股东分红系统上线，首期分红开始核算与发放',
+                    '两代推荐奖励系统上线，自动结算、链上可查'
+                ],
+                
+                q3: 'Q3',
+                q3Title: '2026 生态完善阶段',
+                q3Items: [
+                    '新增上线斗地主、麻将全品类棋牌游戏',
+                    '完善游戏匹配、好友房、赛事场、排行榜系统',
+                    '启动 DAO 股东自治投票，重大决策由全体股东共同决定',
+                    '完成 Pi 生态多项目对接，实现流量互通、用户互通、生态互通',
+                    '全面提升用户体验，优化游戏流畅度与安全风控体系'
+                ],
+                
+                q4: 'Q4',
+                q4Title: '2026 成熟稳定阶段',
+                q4Items: [
+                    '全游戏矩阵优化完成，平台功能全面成熟',
+                    '全球先锋用户大规模涌入，生态活跃度持续爆发',
+                    '平台实现稳定自造血，股东收益稳步增长',
+                    '成为 Pi 生态内玩家最多、落地最强、共识最高的头部娱乐生态',
+                    '建立长期稳定运营机制，保障所有股东享受终身、可持续、高价值的生态收益'
+                ],
+                
+                // 核心价值
+                values: '九、核心价值与时代意义',
+                
+                value1: 'Pi 生态破局者',
+                value1Desc: '彻底解决 Pi 流通难题，让 Pi 从"挖矿资产"变为"使用资产"，激活生态活力。',
+                value2: '先锋收益革新者',
+                value2Desc: '让先锋不再依赖单一挖矿，通过娱乐、签到、竞技、分红获得多元化、长期化、超额化收益。',
+                value3: '全民共建先行者',
+                value3Desc: 'Pi 生态首批将所有权、分红权、治理权全面下放给先锋的项目，践行 Web3.0 精神。',
+                value4: '生态价值落地者',
+                value4Desc: '以真实游戏场景、真实用户需求、真实造血能力，实现 Pi 生态从概念到落地的跨越。',
+                value5: '伟业成就践行者',
+                value5Desc: '响应尼古拉斯愿景，让一部分先锋抓住生态早期红利，在 Pi 生态中成就属于自己的长期伟业。',
+                
+                // 合规声明
+                compliance: '十、合规声明与风险提示',
+                compliance1: '本平台为Pi 生态休闲竞技娱乐平台，仅提供游戏服务，不涉及法币交易、不提供金融理财、不构成投资建议。',
+                compliance2: '平台积分仅为游戏内消耗道具，不具备证券、期货、理财等任何金融属性。',
+                compliance3: 'Pi 资产价格由市场共识决定，平台不承诺收益、不担保价值。',
+                compliance4: '游戏对局为娱乐行为，输赢均为生态内体验，请先锋理性参与、文明娱乐。',
+                compliance5: '平台严格遵守全球各国法律法规，坚守 Pi 生态规则，坚持合规、透明、安全运营。',
+                compliance6: '早期生态存在正常迭代优化，团队将全力保障生态稳定、股东权益与用户体验。',
+                
+                // 结语
+                conclusion: '结语',
+                conclusion1: '派信娱乐，不止是一款游戏平台，更是 Pi 生态价值落地的里程碑、先锋收益的新引擎、全民共建的新标杆。',
+                conclusion2: '我们以 1000 名股东为起点，以社区自治为核心，以 Pi 流通为使命，以长期收益为目标，让每一位参与者，都能在生态中获得尊重、获得价值、获得长期稳定的回报。',
+                conclusion3: 'Pi 的时代已经到来，生态的红利正在爆发。',
+                conclusion4: '加入派信娱乐，成为生态共建者，抓住 Pi 生态黄金机遇，成就属于自己的时代伟业！',
+                conclusion5: '派信娱乐·与全球 Pi 先锋共建未来',
+                conclusion6: '2026 年 全面落地',
+                
+                // 页脚
+                aboutUs: '关于我们',
+                aboutUsDesc: '派信娱乐是Pi Network生态首批社区自治型H5棋牌娱乐平台，致力于让Pi真正流通、让先锋创造价值、让股东长期收益。',
+                quickLinks: '快速链接',
+                contactUs: '联系我们',
+                email: '官方邮箱：pixin.yule@protonmail.com',
+                telegram: '电报群：pixinyule314',
+                copyright: '© 2026 派信娱乐（PaiXin Entertainment）. 保留所有权利。',
+                disclaimer: '本白皮书仅供参考，不构成任何投资建议。'
+            },
+            
+            en: {
+                // Navigation
+                navOverview: 'Overview',
+                navMarket: 'Market Pain Points',
+                navProducts: 'Core Products',
+                navEconomy: 'Economic Model',
+                navShareholders: 'Shareholder Plan',
+                navRoadmap: 'Roadmap',
+                
+                // Hero Section
+                title: 'PaiXin Entertainment',
+                subtitle: 'Official Final Whitepaper',
+                version: 'Version',
+                versionValue: 'Official Final V1.0',
+                releaseDate: 'Release Date',
+                releaseDateValue: '2026',
+                ecoPosition: 'Ecosystem Position',
+                ecoPositionValue: 'Pi Network Mainnet Ecosystem',
+                startReading: 'Start Reading',
+                currentLanguage: 'English',
+                
+                // Core Values
+                coreValues: 'Core Mission',
+                value1Title: 'Let Pi Truly Circulate',
+                value1Desc: 'Build high-frequency circulation scenarios, activate Pi ecosystem vitality, realize value transfer',
+                value2Title: 'Let Pioneers Create Value',
+                value2Desc: 'Provide diversified participation methods, allowing every pioneer to contribute value',
+                value3Title: 'Let Shareholders Benefit Long-term',
+                value3Desc: 'Establish sustainable dividend mechanism, ensure long-term stable returns for shareholders',
+                
+                // Preface
+                preface: 'Preface',
+                
+                // Overview
+                overview: 'I. Project Overview',
+                
+                // Market Pain Points
+                market: 'II. Market Pain Points & Pioneer Needs',
+                painPoints: 'Pi Ecosystem Core Pain Points',
+                painPoint1: 'Severely Insufficient Liquidity',
+                painPoint1Desc: 'Pi only supports basic transfer, staking and other simple functions, lacks high-frequency, just-needed, sustainable consumption and entertainment scenarios, assets cannot flow efficiently, and ecosystem vitality is difficult to release.',
+                painPoint2: 'Lack of Pioneer Interaction',
+                painPoint2Desc: 'Existing ecosystem lacks participatory, competitive, and social entertainment platforms for all, pioneers can only mine independently, without group interaction, entertainment experience, or value co-creation.',
+                painPoint3: 'Completely Blank Game Ecosystem',
+                painPoint3Desc: 'Pi ecosystem has no native chess and card competitive applications, pioneers have no suitable entertainment channels, and Pi cannot be consumed and appreciated in game scenarios.',
+                painPoint4: 'Value Cannot Be Realized',
+                painPoint4Desc: 'Pioneers accumulate Pi through long-term mining, but there is no landing ecosystem to undertake value, unable to obtain additional income through ecosystem participation, mining income is single and limited.',
+                painPoint5: 'No True Community Autonomy',
+                painPoint5Desc: 'Traditional ecosystems are completely controlled by the project team, pioneers are only users, do not enjoy platform ownership, dividend rights, and governance rights, unable to share in ecosystem growth dividends.',
+                
+                demands: 'Pioneer Core Needs',
+                demand1: 'Safe & Compliant Entertainment Scenarios',
+                demand1Desc: 'Need safe, compliant, native Pi entertainment scenarios to realize high-frequency use and circulation of Pi.',
+                demand2: 'Low-threshold Easy-to-use Platform',
+                demand2Desc: 'Need low-threshold, easy-to-use gaming platform to earn additional points and Pi through entertainment.',
+                demand3: 'Long-term Stable Income Channels',
+                demand3Desc: 'Need long-term stable, sustainable income channels to break through the single mining income model.',
+                demand4: 'Community Co-construction & Sharing Ecosystem',
+                demand4Desc: 'Need community co-construction and sharing autonomous ecosystem to truly participate in ecosystem construction and enjoy dividends.',
+                demand5: 'Pi Browser Native Application',
+                demand5Desc: 'Need Pi Browser native, no跳转, one-click login lightweight application to ensure ecosystem security and convenient use.',
+                
+                solution: 'PaiXin Entertainment precisely solves all pain points, fully meets pioneer needs, and becomes an indispensable core infrastructure for the Pi ecosystem.',
+                
+                // Positioning & Mission
+                positioning: 'III. Ecosystem Positioning & Core Mission',
+                ecoPositioning: 'Ecosystem Positioning',
+                ecoPositioningDesc: 'Pi Network Ecosystem\'s First Community Autonomous H5 Chess & Card Entertainment Ecosystem',
+                nativeApp: 'Pi Browser Native Application',
+                piOnly: 'Pure Pi Circulation',
+                selfSustaining: 'Self-sustaining Business Closed Loop',
+                communityBuild: '1000 Shareholders Co-construction',
+                
+                mission: 'Core Mission',
+                mission1: 'Let Pi truly circulate, be efficiently used, and continuously appreciate in entertainment scenarios.',
+                mission2: 'Let pioneers obtain long-term income beyond lightning clicking through entertainment interaction.',
+                mission3: 'Let 1000 founding shareholders share permanent dividend rights and autonomous governance rights of the ecosystem.',
+                mission4: 'Create a standardized, replicable, and implementable community co-construction template for the Pi ecosystem.',
+                mission5: 'Practice Nicolas\' vision, allowing pioneers to achieve great achievements in the Pi ecosystem.',
+                
+                // Core Products
+                products: 'IV. Core Products & Technical Architecture',
+                gameMatrix: '(I) Core Game Matrix',
+                gameMatrixDesc: 'The platform focuses on classic chess and card games for all ages, continuously iterating and updating:',
+                game1: 'Chinese Chess',
+                game1Desc: 'Classic matches, ranked matches, friend rooms',
+                game2: 'Guandan',
+                game2Desc: 'Four-player matching, friend teaming, tournament venues',
+                game3: 'Dou Di Zhu',
+                game3Desc: 'Classic, wild card, challenge matches',
+                game4: 'Mahjong',
+                game4Desc: 'Multi-region rules, quick matches, custom rooms',
+                futureGames: 'Future Expansion:',
+                futureGamesList: 'Gomoku, Go, casual competitive games',
+                
+                techArchitecture: '(II) Technical Architecture (Pi Browser Native Adaptation)',
+                appType: 'Application Form',
+                appTypeDesc: 'H5 web application, adaptive to all devices, no need to download APP',
+                runtimeEnv: 'Runtime Environment',
+                runtimeEnvDesc: 'Pi Browser embedded operation, no external link jumps',
+                loginMethod: 'Login Method',
+                loginMethodDesc: 'Pi wallet one-click authorization login, no registration, no information leakage, no additional threshold',
+                paymentSystem: 'Payment System',
+                paymentSystemDesc: 'Pi mainnet native payment, safe and verifiable, transparent on-chain',
+                fairness: 'Fairness Mechanism',
+                fairnessDesc: 'On-chain hash random algorithm, anti-cheating, anti-hacking, ensuring fair matches',
+                dataSecurity: 'Data Security',
+                dataSecurityDesc: 'All data on-chain, dividends, transactions, referral relationships publicly verifiable',
+                
+                ecoInteroperability: '(III) Ecosystem Interoperability',
+                ecoInteroperabilityDesc: 'The platform supports comprehensive docking with other DApps, malls, and tool projects in the Pi ecosystem, realizing traffic interoperability, asset interoperability, and user interoperability, creating a Pi ecosystem traffic hub, and continuously attracting global pioneer users.',
+                trafficInterop: 'Traffic Interoperability',
+                assetInterop: 'Asset Interoperability',
+                userInterop: 'User Interoperability',
+                
+                // Economic Model
+                economy: 'V. Ecosystem Economic Model (Dual Asset Closed Loop · Self-sustaining System)',
+                economyDesc: 'PaiXin Entertainment adopts a dual circulation system of Pi core assets + platform points, compliant, safe, stable closed loop, permanently sustainable.',
+                
+                assets: '(I) Core Asset Definition',
+                piCoin: 'Pi (Pi Coin)',
+                piCoinDesc: 'The platform\'s only core value asset, used for:',
+                piUses: ['Recharge exchange', 'Withdrawal', 'Dividend distribution', 'Referral rewards', 'Transfer settlement', 'Ecosystem circulation'],
+                
+                platformPoints: 'Platform Points',
+                platformPointsDesc: 'The only circulation medium in the game, only used for:',
+                pointUses: ['Game entry', 'Match consumption', 'Item purchase', 'Tournament registration'],
+                pointsCompliance: 'Points are only for in-platform circulation, not for external trading, not exchangeable for fiat currency, no financial attributes, fully compliant.',
+                
+                exchangeRate: '(II) Fixed Exchange Rate',
+                exchangeRateDesc: 'Unified ratio across the platform, permanently fixed, never adjusted, ensuring ecosystem economic stability.',
+                
+                pointSources: '(III) Point Acquisition Channels',
+                recharge: 'Pi recharge exchange',
+                rechargeDesc: 'Main source',
+                dailyCheckin: 'Daily check-in reward',
+                dailyCheckinDesc: 'Shareholders enjoy 1.5x',
+                gameWin: 'Game match victory',
+                gameWinDesc: 'Competitive rewards',
+                tasks: 'Task and activity rewards',
+                tasksDesc: 'Ranking rewards',
+                
+                circulation: '(IV) Complete Circulation Closed Loop',
+                step1: 'Recharge',
+                step1Desc: 'Pioneers use Pi to exchange for points, 0 fee for recharge',
+                step2: 'Game',
+                step2Desc: 'Use points to participate in chess and card matches, consume for entry',
+                step3: 'Production',
+                step3Desc: 'Obtain points through victory, check-in, tasks',
+                step4: 'Withdrawal',
+                step4Desc: 'Points can be exchanged for Pi withdrawal, platform charges 0.1% withdrawal fee',
+                step5: 'Self-sustaining',
+                step5Desc: 'Platform fees, game service fees, ecosystem cooperation income form self-sustainability',
+                step6: 'Dividend',
+                step6Desc: 'All income is distributed to all shareholders according to fixed proportion',
+                
+                revenue: '(V) Platform Revenue Sources (Self-sustaining Ability)',
+                gameFees: 'Game match fees',
+                gameFeesDesc: 'Core income',
+                withdrawalFees: 'Withdrawal service fees',
+                withdrawalFeesDesc: '0.1%',
+                transferFees: 'Shareholder equity transfer fees',
+                transferFeesDesc: 'Transaction service fees',
+                ecoPartnerships: 'Ecosystem cooperation traffic income',
+                ecoPartnershipsDesc: 'External cooperation income',
+                valueAdded: 'In-game value-added service income',
+                valueAddedDesc: 'Items, privileges and other value-added services',
+                
+                distribution: '(VI) Rigid Income Distribution Rules',
+                distributionDesc: 'All platform income is strictly distributed according to the following proportions permanently, never tampered:',
+                shareholderPool: 'Founding shareholder permanent dividend pool',
+                shareholderPoolDesc: 'Automatically distributed according to shareholder contribution weight, regularly distributed, verifiable on-chain',
+                techDev: 'Technology development and operation',
+                techDevDesc: 'Servers, security audits, version iterations, technical maintenance',
+                marketing: 'Market operation and traffic fund',
+                marketingDesc: 'Community promotion, activity rewards, referral reward distribution, ecosystem docking, global customer acquisition',
+                
+                // Shareholder Plan
+                shareholders: 'VI. 1000 Founding Shareholders Plan (Community Co-construction · Core Foundation)',
+                
+                recruitment: '(I) Shareholder Recruitment Rules',
+                recruitment1: 'Global limited recruitment of 1000 founding shareholders, registration closes immediately when full',
+                recruitment2: 'Joining condition: Contribute 900 Pi to public transparent multi-signature wallet',
+                recruitment3: 'Fund usage: Platform development, servers, operation, ecosystem launch, market promotion',
+                recruitment4: 'Participation entities: Pi global pioneers, community teams, consensus builders co-construction and sharing',
+                
+                shareholderCount: 'Shareholder Quota',
+                shareholderLimit: 'Global limited, first come first served',
+                recruited: 'Recruited',
+                
+                benefits: '(II) Shareholder Lifetime Core Rights',
+                permanentDividend: 'Permanent dividend right',
+                permanentDividendDesc: 'Enjoy 65% of platform total income lifetime dividend, permanently valid',
+                bonusCheckin: '1.5x check-in reward',
+                bonusCheckinDesc: 'Daily check-in points doubled, higher income',
+                exclusiveNFT: 'Exclusive co-creation NFT',
+                exclusiveNFTDesc: 'Ecosystem unique identity, with governance weight',
+                daoVoting: 'DAO autonomous voting right',
+                daoVotingDesc: 'Participate in platform rules, game updates, fee adjustments, operation decisions',
+                priorityAccess: 'Priority experience right',
+                priorityAccessDesc: 'Priority participation in new versions, new games, new activities',
+                referralReward: 'Referral reward right',
+                referralRewardDesc: 'Enjoy two-generation compliant referral reward qualification',
+                transferRight: 'Asset transfer and circulation right',
+                transferRightDesc: 'Shareholder rights can be freely transferred and circulated, realizing asset monetization',
+                
+                transferRules: '(III) Shareholder Transfer and Circulation Rules',
+                transferRule1: 'After 1000 shareholders are full, shareholder rights support free transfer',
+                transferRule2: 'Each transfer, platform charges reasonable fee, included in ecosystem income pool',
+                transferRule3: 'Transfer records are verifiable on-chain, public and transparent, secure guarantee',
+                transferRule4: 'Transfer does not affect dividend right continuity, new shareholders automatically inherit all rights',
+                
+                communityGovernance: '(IV) Community Autonomous Operation',
+                communityGovernanceDesc: 'PaiXin Entertainment is jointly operated by the initial entrepreneurial team + global pioneer community, major decisions are all determined through shareholder DAO voting, truly realizing pioneer autonomy, community co-governance, and ecosystem sharing.',
+                governancePrinciples: 'Community Autonomy Core Principles',
+                pioneerSelfGov: 'Pioneer Autonomy',
+                communityCoGov: 'Community Co-governance',
+                ecoShared: 'Ecosystem Sharing',
+                
+                // Referral Rewards
+                referral: 'VII. Two-generation Referral Reward Mechanism (Compliant Fission · Rapid Implementation)',
+                referralDesc: 'To accelerate ecosystem implementation and quickly complete the recruitment of 1000 shareholders, the platform establishes two-generation compliant referral rewards, limited to the shareholder recruitment stage, no multi-level, no pyramid scheme risk:',
+                
+                directReferral: 'First-level Direct Referral Reward',
+                directReferralDesc: 'Refer 1 person to successfully become a shareholder (pay 900 Pi), reward 90 Pi equivalent assets',
+                indirectReferral: 'Second-level Indirect Referral Reward',
+                indirectReferralDesc: 'Directly referred shareholder refers another person to join, superior receives 45 Pi equivalent assets',
+                referralRule1: 'Two-generation cap, no limit on direct referral count, more new users, higher income',
+                referralRule2: 'All rewards are paid from 20% operation fund, never occupy 65% shareholder dividend pool',
+                referralRule3: 'Referral relationships are automatically recorded on-chain, regularly unified settlement, publicly verifiable',
+                
+                // Roadmap
+                roadmap: 'VIII. 2026 Comprehensive Implementation Plan (Q1–Q4 Complete Version)',
+                
+                q1: 'Q1',
+                q1Title: '2026 Launch Foundation Stage',
+                q1Items: [
+                    'Officially release official whitepaper, launch global 1000 founding shareholder recruitment',
+                    'Complete multi-signature wallet deployment, fund transparent disclosure, community autonomy rules establishment',
+                    'H5 game platform basic architecture development, complete Pi Browser adaptation and login docking',
+                    'Build point system, recharge and withdrawal system, dividend accounting backend',
+                    'Form community operation team, launch global pioneer promotion and community building'
+                ],
+                
+                q2: 'Q2',
+                q2Title: '2026 Official Launch Stage',
+                q2Items: [
+                    'PaiXin Entertainment H5 platform officially launches in Pi Browser',
+                    'Launch core games: Chinese Chess, Guandan',
+                    'Open Pi recharge exchange for points, check-in rewards, match competitive functions',
+                    '0.1% withdrawal fee mechanism officially enabled',
+                    'Shareholder dividend system goes online, first dividend begins accounting and distribution',
+                    'Two-generation referral reward system goes online, automatic settlement, verifiable on-chain'
+                ],
+                
+                q3: 'Q3',
+                q3Title: '2026 Ecosystem Improvement Stage',
+                q3Items: [
+                    'New launch of Dou Di Zhu, Mahjong full-category chess and card games',
+                    'Improve game matching, friend rooms, tournament venues, ranking systems',
+                    'Launch DAO shareholder autonomous voting, major decisions are jointly determined by all shareholders',
+                    'Complete multi-project docking with Pi ecosystem, realize traffic interoperability, user interoperability, ecosystem interoperability',
+                    'Comprehensively improve user experience, optimize game fluency and security risk control system'
+                ],
+                
+                q4: 'Q4',
+                q4Title: '2026 Mature and Stable Stage',
+                q4Items: [
+                    'Full game matrix optimization completed, platform functions fully mature',
+                    'Global pioneer users flood in on a large scale, ecosystem activity continues to explode',
+                    'Platform achieves stable self-sustainability, shareholder income steadily increases',
+                    'Become the leading entertainment ecosystem with the most players, strongest implementation, and highest consensus in the Pi ecosystem',
+                    'Establish long-term stable operation mechanism, ensure all shareholders enjoy lifetime, sustainable, high-value ecosystem income'
+                ],
+                
+                // Core Values
+                values: 'IX. Core Values & Era Significance',
+                
+                value1: 'Pi Ecosystem Game Changer',
+                value1Desc: 'Completely solve Pi circulation problems, transform Pi from "mining asset" to "usage asset", activate ecosystem vitality.',
+                value2: 'Pioneer Income Innovator',
+                value2Desc: 'Let pioneers no longer rely on single mining, obtain diversified, long-term, excess income through entertainment, check-in, competition, dividends.',
+                value3: 'Community Co-construction Pioneer',
+                value3Desc: 'The first project in Pi ecosystem to fully delegate ownership, dividend rights, and governance rights to pioneers, practicing Web3.0 spirit.',
+                value4: 'Ecosystem Value Implementer',
+                value4Desc: 'With real game scenarios, real user needs, real self-sustaining ability, realize the leap of Pi ecosystem from concept to implementation.',
+                value5: 'Great Achievement Practitioner',
+                value5Desc: 'Respond to Nicolas\' vision, let some pioneers seize early ecosystem dividends, achieve their own long-term great achievements in the Pi ecosystem.',
+                
+                // Compliance Statement
+                compliance: 'X. Compliance Statement & Risk Disclosure',
+                compliance1: 'This platform is a Pi ecosystem leisure competitive entertainment platform, only provides game services, does not involve fiat currency trading, does not provide financial wealth management, does not constitute investment advice.',
+                compliance2: 'Platform points are only in-game consumption items, do not have any financial attributes such as securities, futures, wealth management, etc.',
+                compliance3: 'Pi asset price is determined by market consensus, the platform does not promise returns, does not guarantee value.',
+                compliance4: 'Game matches are entertainment behaviors, wins and losses are all in-ecosystem experience, please pioneers participate rationally, entertain civilizedly.',
+                compliance5: 'The platform strictly abides by laws and regulations of all countries around the world, adheres to Pi ecosystem rules, and insists on compliant, transparent, and safe operation.',
+                compliance6: 'Early ecosystem has normal iteration and optimization, the team will fully guarantee ecosystem stability, shareholder rights, and user experience.',
+                
+                // Conclusion
+                conclusion: 'Conclusion',
+                conclusion1: 'PaiXin Entertainment is not just a gaming platform, but also a milestone for Pi ecosystem value implementation, a new engine for pioneer income, and a new benchmark for community co-construction.',
+                conclusion2: 'We start with 1000 shareholders, take community autonomy as the core, take Pi circulation as the mission, take long-term income as the goal, so that every participant can gain respect, gain value, and gain long-term stable returns in the ecosystem.',
+                conclusion3: 'The era of Pi has arrived, and ecosystem dividends are exploding.',
+                conclusion4: 'Join PaiXin Entertainment, become an ecosystem co-builder, seize the golden opportunity of Pi ecosystem, and achieve your own era great achievements!',
+                conclusion5: 'PaiXin Entertainment · Co-building the Future with Global Pi Pioneers',
+                conclusion6: '2026 Comprehensive Implementation',
+                
+                // Footer
+                aboutUs: 'About Us',
+                aboutUsDesc: 'PaiXin Entertainment is the first community autonomous H5 chess and card entertainment platform in the Pi Network ecosystem, dedicated to making Pi truly circulate, letting pioneers create value, and letting shareholders benefit long-term.',
+                quickLinks: 'Quick Links',
+                contactUs: 'Contact Us',
+                email: 'Official Email: pixin.yule@protonmail.com',
+                telegram: 'Telegram Group: pixinyule314',
+                copyright: '© 2026 PaiXin Entertainment. All rights reserved.',
+                disclaimer: 'This whitepaper is for reference only and does not constitute any investment advice.'
+            }
+        };
+        
+        // Language switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('language-toggle');
+            const languageDropdown = document.getElementById('language-dropdown');
+            const currentLanguage = document.getElementById('current-language');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            // Toggle language dropdown
+            languageToggle.addEventListener('click', function() {
+                languageDropdown.classList.toggle('hidden');
+                // Add glow effect when dropdown is open
+                if (!languageDropdown.classList.contains('hidden')) {
+                    languageToggle.classList.add('shadow-glow');
+                } else {
+                    languageToggle.classList.remove('shadow-glow');
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!languageToggle.contains(event.target) && !languageDropdown.contains(event.target)) {
+                    languageDropdown.classList.add('hidden');
+                    languageToggle.classList.remove('shadow-glow');
+                }
+            });
+            
+            // Language switching
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    switchLanguage(lang);
+                    currentLanguage.textContent = lang === 'zh' ? '简体中文' : 'English';
+                    languageDropdown.classList.add('hidden');
+                    languageToggle.classList.remove('shadow-glow');
+                    
+                    // Add click animation
+                    this.classList.add('scale-95');
+                    setTimeout(() => {
+                        this.classList.remove('scale-95');
+                    }, 150);
+                });
+            });
+            
+            // Function to switch language
+            function switchLanguage(lang) {
+                // Get all elements with data-lang attribute
+                const elements = document.querySelectorAll('[data-lang-key]');
+                
+                // Add fade out effect
+                document.body.classList.add('opacity-50');
+                
+                setTimeout(() => {
+                    elements.forEach(element => {
+                        const key = element.getAttribute('data-lang-key');
+                        if (translations[lang][key]) {
+                            element.textContent = translations[lang][key];
+                        }
+                    });
+                    
+                    // Update document title
+                    document.title = lang === 'zh' ? '派信娱乐 - 官方终版白皮书' : 'PaiXin Entertainment - Official Final Whitepaper';
+                    
+                    // Update image alt texts
+                    const images = document.querySelectorAll('img[alt]');
+                    images.forEach(img => {
+                        if (img.alt === '派信娱乐' || img.alt === 'PaiXin Entertainment') {
+                            img.alt = lang === 'zh' ? '派信娱乐' : 'PaiXin Entertainment';
+                        }
+                    });
+                    
+                    // Update button titles
+                    const telegramBtn = document.querySelector('[title="电报群"]') || document.querySelector('[title="Telegram Group"]');
+                    const emailBtn = document.querySelector('[title="官方邮箱"]') || document.querySelector('[title="Official Email"]');
+                    if (telegramBtn) telegramBtn.title = lang === 'zh' ? '电报群' : 'Telegram Group';
+                    if (emailBtn) emailBtn.title = lang === 'zh' ? '官方邮箱' : 'Official Email';
+                    
+                    // Add fade in effect
+                    document.body.classList.remove('opacity-50');
+                }, 200);
+            }
+            
+            // Initialize language
+            switchLanguage('zh');
+        });
+        
+        // 滚动动画
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.shadow-elegant');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animate-fade-in');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+
+</body></html>
